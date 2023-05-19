@@ -1,0 +1,11 @@
+type Article {
+  id: Int
+  title: String
+  content: String
+  author: String
+  abstract: String
+}
+
+type Query {
+  article(id: Int!): Article
+}

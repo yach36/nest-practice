@@ -1,10 +1,8 @@
-import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { Module } from '@nestjs/common'
+import { GraphQLServerModule } from './graphql/graphql-server.module'
+import { ArticleModule } from './article/article.module';
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [GraphQLServerModule, ArticleModule],
 })
 export class AppModule {}
