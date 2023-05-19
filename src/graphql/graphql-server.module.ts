@@ -1,6 +1,6 @@
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo'
 import { Module } from '@nestjs/common'
-import { GraphQLModule } from '@nestjs/graphql'
+import { GqlModuleOptions, GraphQLModule } from '@nestjs/graphql'
 import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core'
 import { join } from 'path/posix'
 
@@ -8,15 +8,17 @@ import { join } from 'path/posix'
   imports: [
     GraphQLModule.forRootAsync<ApolloDriverConfig>({
       driver: ApolloDriver,
-      useFactory: async () => ({
-        plugins: [ApolloServerPluginLandingPageLocalDefault()],
-        playground: false,
-        typePaths: ['./src/**/*.graphql'],
-        definitions: {
-          path: join(process.cwd(), 'src/graphql/type/graphql.ts'),
-          outputAs: 'class',
-        },
-      }),
+      useFactory: async () => {
+        return {
+          plugins: [ApolloServerPluginLandingPageLocalDefault()],
+          playground: false,
+          typePaths: ['./src/**/*.graphql'],
+          definitions: {
+            path: join(process.cwd(), 'src/graphql/type/graphql.ts'),
+            outputAs: 'class',
+          },
+        } as GqlModuleOptions
+      },
     }),
   ],
 })
